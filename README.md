@@ -3,7 +3,7 @@
 1. docker-compose run --rm node npm i
 2. docker-compose up
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+if use vscode then can configure the auto code formatter with CTRL + SHIFT + I and choose Prettier.
 
 ## Available Scripts
 

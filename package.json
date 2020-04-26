@@ -30,20 +30,14 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts jest",
-    "lint": "./utils/scripts/lint",
-    "lint:full": "./utils/scripts/lint-full"
+    "precommit": "pretty-quick --staged  --check --pattern '**/*.*(js|jsx)' --bail"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,css,less}": [
-      "prettier --check"
+      "prettier --single-quote --check"
     ]
   },
   "browserslist": {
@@ -71,8 +65,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "husky": "^4.2.5",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-immutable-state-invariant": "^2.1.0"
