@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const generateactions = (entityName, APIUrl, newActions) => {
+const generateactions = (entityName, APIUrl, newActions, pageSize) => {
   function requesting(reqName) {
     return {
       type: `${entityName}/REQUESTING`,
@@ -19,12 +19,47 @@ const generateactions = (entityName, APIUrl, newActions) => {
   function list(params, onSuccess, onError, apiEndpoint = APIUrl) {
     return dispatch => {
       const reqName = 'list';
+      const processParams = params ? { ...params } : {};
+
+      if (!processParams.limit) {
+        processParams.limit = pageSize;
+      }
       dispatch(requesting(reqName));
       axios
-        .get(apiEndpoint, { params })
+        .get(apiEndpoint, { params: processParams })
         .then(resp => {
           dispatch({
             type: `${entityName}/LIST`,
+            data: resp.data,
+            reqName
+          });
+          if (typeof onSuccess === 'function') {
+            onSuccess(resp.data);
+          }
+        })
+        .catch(e => {
+          const errors = e.response?.data;
+          dispatch(requestError(reqName, errors));
+
+          if (typeof onError === 'function') {
+            onError({
+              errors,
+              reqStatus: e.response?.status ?? undefined
+            });
+          }
+        });
+    };
+  }
+
+  function detail(id, onSuccess, onError, params = {}, apiEndpoint = APIUrl) {
+    return dispatch => {
+      const reqName = 'detail';
+      dispatch(requesting(reqName));
+      axios
+        .get(`${apiEndpoint}${id}/`, { params })
+        .then(resp => {
+          dispatch({
+            type: `${entityName}/DETAIL`,
             data: resp.data,
             reqName
           });
@@ -136,7 +171,7 @@ const generateactions = (entityName, APIUrl, newActions) => {
     };
   }
 
-  return { list, create, update, destroy, ...newActions };
+  return { list, create, update, destroy, detail, ...newActions };
 };
 
 export default generateactions;

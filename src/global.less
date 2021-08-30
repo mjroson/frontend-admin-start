@@ -1,3 +1,5 @@
+@sidebar-width: 200px;
+
 #logo {
   text-align: center;
   padding: 20px 0px;
@@ -37,13 +39,20 @@
   text-align: right;
 }
 
-.generic-crud-section {
-  .page-header {
-    .btn-actions {
-      float: right;
-      margin-left: 5px;
-    }
+.ant-page-header {
+  padding: 0px !important;
+  .btn-actions {
+    float: right;
+    margin-left: 5px;
   }
+  & .ant-page-header-content,
+  & .ant-page-header-content,
+  & .ant-page-header-footer {
+    padding: 15px !important;
+  }
+}
+
+.generic-crud-section {
   .search-icon {
     color: rgba(0, 0, 0, 0.25);
   }
@@ -62,25 +71,77 @@
   margin-right: 8px !important;
 }
 
+.ant-drawer-horizontal {
+  overflow-x: hidden !important;
+}
+
 .ant-drawer-horizontal .ant-drawer-content-wrapper {
   width: 700px !important;
+  max-width: 100vw !important;
+}
+
+.ant-drawer-horizontal.drawer-detail .ant-drawer-body {
+  padding: 10px;
+}
+
+.ant-drawer-vertical .ant-drawer-body {
+  padding-bottom: 50px;
+}
+
+.ant-drawer-vertical {
+  width: calc(100% - @sidebar-width) !important;
+  left: @sidebar-width !important;
+}
+
+.ant-back-top {
+  right: 50px !important;
+  bottom: 30px !important;
 }
 
 .ant-calendar-picker {
   width: 100%;
 }
 
+.sidebar-main .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ant-space-item:last-of-type {
+  /**  Fix remove icon position in form items lists (dynamic list form) */
+  margin: 5px auto auto !important;
+}
+
+/* Fix table general styles */
+
+@media screen and (max-width: 970px) {
+  .ant-drawer-vertical {
+    width: calc(100% - 80px) !important;
+    left: 80px !important;
+  }
+}
+
 /* Fix mobile general styles */
 @media screen and (max-width: 700px) {
-  .generic-crud-section {
-    .ant-page-header.page-header.ant-page-header-ghost {
-      padding: 0px;
-    }
+  .ant-back-top {
+    right: 15px !important;
+    bottom: 15px !important;
+  }
 
-    .ant-input-search.ant-input-search-enter-button.ant-input-group-wrapper {
+  .ant-page-header {
+    & .ant-page-header-content,
+    & .ant-page-header-content,
+    & .ant-page-header-footer {
+      padding: 15px 0px !important;
+    }
+  }
+
+  .generic-crud-section {
+    & .ant-input-search.ant-input-search-enter-button.ant-input-group-wrapper {
       width: 100% !important;
     }
-    .form-filters .btn-open-filters-form {
+    & .form-filters .btn-open-filters-form {
       width: 100%;
     }
   }
@@ -95,11 +156,28 @@
     }
   }
 
+  .ant-drawer-vertical {
+    width: 100% !important;
+    left: 0px !important;
+  }
+
   .ant-drawer-vertical .ant-drawer-content-wrapper {
     height: 100vh !important;
   }
 
-  .ant-drawer-horizontal .ant-drawer-content-wrapper {
-    width: 100% !important;
+  .ant-space.ant-space-horizontal.ant-space-align-start {
+    // Fixed filters inline forms in segment
+    flex-direction: column;
+    border-bottom: solid 0.5px #efefef;
+  }
+
+  .ant-drawer-horizontal {
+    overflow-x: auto !important;
+
+    & .ant-drawer-content-wrapper {
+      width: 100% !important;
+      height: 100vh !important;
+      left: 0px;
+    }
   }
 }

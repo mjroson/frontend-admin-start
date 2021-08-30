@@ -1,9 +1,10 @@
 import moment from 'moment';
-import { formatDateToParser, formatDateToRender } from './contants';
+import { formatDateToParser } from './contants';
 
 export const CustomDateParam = {
-  encode: date => date.format(formatDateToParser),
-  decode: input => moment(input).format(formatDateToRender)
+  encode: date => (date ? date.format(formatDateToParser) : date),
+  decode: input =>
+    input ? moment(input).format(formatDateToParser) : undefined
 };
 
 export const DateRangeParam = {

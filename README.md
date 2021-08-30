@@ -1,11 +1,23 @@
 ### Local deploy
 
-1. docker-compose run --rm node npm i
-2. docker-compose up
+1. Configure pre-commit
+   cp .githooks/pre-commit .git/hooks/pre-commit
 
-if use vscode then can configure the auto code formatter with CTRL + SHIFT + I and choose Prettier.
+2. Copy the environment file
+   cp local.env .env
 
-## Available Scripts
+3. Install dependences
+   docker-compose run --rm node npm i
+
+4. Start project and make sh
+   docker-compose up
+
+# Start project manually
+
+docker-compose run --rm --service-port node bash
+npm start
+
+## Available Scripts inside container
 
 In the project directory, you can run:
 

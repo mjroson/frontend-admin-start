@@ -1,9 +1,15 @@
 import moment from 'moment';
-import { formatDateToRender } from './contants';
+import { formatDateToRender, formatDateTimeDisplay } from './contants';
 
 export const displayDate = date => {
   if (date !== null) {
     return moment(date).format(formatDateToRender);
+  }
+};
+
+export const displayDateTime = date => {
+  if (date !== null) {
+    return moment(date).format(formatDateTimeDisplay);
   }
 };
 

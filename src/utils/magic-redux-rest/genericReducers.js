@@ -37,13 +37,29 @@ const generateReducer = entityName => ({
     }
   }),
 
+  // Receive list
+  [`${entityName}/DETAIL`]: (state, action) => ({
+    ...state,
+    currentData: {
+      ...action.data
+    },
+    reqStatus: {
+      ...state.reqStatus,
+      [action.reqName]: 'loaded'
+    },
+    errors: {
+      ...state.errors,
+      [action.reqName]: null
+    }
+  }),
+
   // Receive a new object
   [`${entityName}/CREATE`]: (state, action) => ({
     ...state,
     listData: {
       ...state.listData,
       count: state.listData.count + 1,
-      results: [...state.listData.results, { ...action.data }]
+      results: [{ ...action.data }, ...state.listData.results]
     },
     reqStatus: {
       ...state.reqStatus,

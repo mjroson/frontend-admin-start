@@ -9,7 +9,10 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      '@primary-color': '#2f91fb'
+      // All Variables on https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+      '@primary-color': '#c1c1c1',
+      '@menu-dark-bg': '#c2c2c2',
+      '@layout-sider-background': '#c2c2c2'
     }
   })
 );
